@@ -30,7 +30,7 @@ def display_project_details(project):
 def main():
     st.title("PHY132 Project Showcase")
 
-    st.image("data/img/magnetosphere/magnetosphere_thumbnail.jpg")
+    st.image("data/img/magnetosphere/magnetosphere_thumbnail.jpeg")
     
     projects_data = load_projects()
 
