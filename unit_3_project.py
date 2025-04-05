@@ -14,6 +14,7 @@ def display_project_thumbnails(projects):
     buttons = {}
     for idx, project in enumerate(projects):
         with cols[idx % 3]:
+            print(project["thumbnail"])
             st.image(project["thumbnail"], use_container_width=True)
             if st.button(project["title"]):
                 st.session_state.selected_project = project["title"]
