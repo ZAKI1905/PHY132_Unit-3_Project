@@ -4,7 +4,7 @@ import json
 # Load project data from external file
 @st.cache_data
 def load_projects():
-    with open('projects.json', 'r') as file:
+    with open('data/projects.json', 'r') as file:
         data = json.load(file)
     return data
 
