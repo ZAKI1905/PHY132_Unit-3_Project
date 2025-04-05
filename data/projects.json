@@ -14,7 +14,7 @@
     },
     {
       "title": "Particle Accelerators and Magnetic Fields",
-      "thumbnail": "https://example.com/particle_accelerator_thumbnail.png",
+      "thumbnail": "data/img/accelerators/particle_accelerator_thumbnail.jpeg",
       "description": "Describe how magnetic fields steer charged particle beams in cyclotrons or synchrotrons.\n\n**Task:** Explain with diagrams why magnetic fields affect direction, but not speed.",
       "rubric_link": "https://example.com/accelerator_rubric.pdf"
     },
