@@ -3,7 +3,7 @@ import json
 
 # Load simplified projects data
 def load_projects():
-    with open('projects.json', 'r') as file:
+    with open('data/projects.json', 'r') as file:
         return json.load(file)
 
 # Generate thumbnail path automatically
