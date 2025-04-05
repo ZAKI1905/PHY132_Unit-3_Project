@@ -22,12 +22,24 @@ def display_project_thumbnails(category, projects):
             if st.button(project["title"]):
                 st.session_state.selected_project = (category, project["title"])
 
-# Display project details
+# Display detailed project information
 def display_project_details(category, project):
     st.header(project["title"])
-    st.write(project["description"])
+    
     thumbnail_path = get_thumbnail_path(category, project["title"], project["thumbnail"])
     st.image(thumbnail_path, use_container_width=True)
+
+    st.subheader("📌 Objectives")
+    for obj in project["objectives"]:
+        st.write(f"- {obj}")
+
+    st.subheader("📝 Tasks")
+    for task in project["tasks"]:
+        st.write(f"- {task}")
+
+    st.subheader("🧲 Relevant Physics Concepts and Formulas (PHY132)")
+    for concept in project["physics_concepts"]:
+        st.write(f"- {concept}")
 
     if st.button("⬅️ Back to Projects"):
         st.session_state.selected_project = None
@@ -100,21 +112,6 @@ def main():
             if project["title"] == title:
                 display_project_details(category, project)
                 break
-
-    # Footer with contact info and EKU logo
-    footer = '''
-    ---
-    <div style="display: flex; justify-content: space-between; align-items: center;">
-        <div>
-            This tool was developed for <b>PHY 132 - College Physics II</b> at Eastern Kentucky University.<br>
-            For questions, contact: <b>Professor Zakeri</b> (m.zakeri@eku.edu)
-        </div>
-        <div>
-            <img src="https://raw.githubusercontent.com/ZAKI1905/phy132-kirchhoff-checker/main/img/PrimaryLogo_Maroon.png" width="150">
-        </div>
-    </div>
-    '''
-    st.markdown(footer, unsafe_allow_html=True)
 
 if __name__ == "__main__":
     main()

@@ -3,27 +3,90 @@
     {
       "title": "Analyzing the Earth’s Magnetosphere",
       "thumbnail": "magnetosphere_thumbnail.jpeg",
-      "description": "Explain the solar wind interaction and magnetosphere formation. Discuss protective effects on Earth’s atmosphere and implications for life.\n\n**Task:** Diagram Earth’s magnetosphere and explain particle deflection paths clearly."
+      "objectives": [
+        "Understand the structure and function of Earth's magnetosphere.",
+        "Explore how Earth's magnetic field interacts with solar wind.",
+        "Analyze protective effects of the magnetosphere on Earth."
+      ],
+      "tasks": [
+        "Clearly diagram Earth's magnetosphere, labeling key features (magnetopause, bow shock, radiation belts).",
+        "Explain how solar wind particles interact with Earth’s magnetic field, illustrating their trajectories and deflection clearly."
+      ],
+      "physics_concepts": [
+        "Magnetic fields and field lines",
+        "Charged particle motion in magnetic fields",
+        "Lorentz force: F = q v B sin(θ)"
+      ]
     },
     {
       "title": "Magnetic Torque on Satellites (Attitude Control Systems)",
       "thumbnail": "magnetorquer_thumbnail.jpeg",
-      "description": "Investigate how spacecraft use magnetorquers to adjust orientation.\n\n**Task:** Explain how torque is generated using Earth’s magnetic field, illustrating clearly with diagrams."
+      "objectives": [
+        "Understand how spacecraft use magnetic fields for attitude control.",
+        "Analyze how torque is generated using magnetorquers."
+      ],
+      "tasks": [
+        "Explain the generation of magnetic torque clearly with labeled diagrams.",
+        "Discuss how satellite orientation adjustments are made through controlled currents in magnetorquers."
+      ],
+      "physics_concepts": [
+        "Magnetic torque and magnetic moment",
+        "Right-hand rule for magnetic force and torque",
+        "Torque equation: τ = μ B sin(θ)",
+        "Magnetic moment of coil: μ = NIA"
+      ]
     },
     {
       "title": "Particle Accelerators and Magnetic Fields",
       "thumbnail": "accelerators_thumbnail.jpeg",
-      "description": "Describe how magnetic fields steer charged particle beams in cyclotrons or synchrotrons.\n\n**Task:** Explain with diagrams why magnetic fields affect direction, but not speed."
+      "objectives": [
+        "Explain the role of magnetic fields in particle accelerators.",
+        "Understand how charged particles' trajectories are influenced by magnetic fields."
+      ],
+      "tasks": [
+        "Illustrate clearly how magnetic fields steer particle beams in cyclotrons or synchrotrons.",
+        "Explain conceptually why magnetic fields change direction, but not speed of charged particles."
+      ],
+      "physics_concepts": [
+        "Circular motion of charged particles in magnetic fields",
+        "Lorentz force: F = q v B",
+        "Centripetal force balance: q v B = m v²/r"
+      ]
     },
     {
       "title": "Radiation Belts (Van Allen Belts)",
       "thumbnail": "radiation_belts_thumbnail.jpeg",
-      "description": "Discuss the formation, stability, and hazard posed by Earth’s radiation belts.\n\n**Task:** Clearly explain how Earth’s magnetic field traps charged particles, including diagrams."
+      "objectives": [
+        "Describe Earth's radiation belts and their formation.",
+        "Analyze how charged particles become trapped in Earth's magnetic field."
+      ],
+      "tasks": [
+        "Explain clearly and diagrammatically how particles are trapped and move within the Van Allen belts.",
+        "Discuss hazards posed by radiation belts to spacecraft and astronauts."
+      ],
+      "physics_concepts": [
+        "Magnetic trapping of charged particles",
+        "Helical motion in magnetic fields",
+        "Lorentz force and particle gyration"
+      ]
     },
     {
       "title": "Medical Application: Proton Therapy (Magnetic Steering)",
       "thumbnail": "proton_therapy_thumbnail.jpeg",
-      "description": "Explain how magnets precisely steer proton beams to treat tumors.\n\n**Task:** Discuss physics principles involved; include conceptual diagrams or animations."
+      "objectives": [
+        "Understand the physical principles of proton therapy.",
+        "Explain how magnetic fields precisely direct proton beams in medical treatment."
+      ],
+      "tasks": [
+        "Clearly illustrate how magnets steer proton beams.",
+        "Explain with diagrams and/or animations the trajectory of charged protons in magnetic fields used in therapy."
+      ],
+      "physics_concepts": [
+        "Charged particle motion in magnetic fields",
+        "Lorentz force: F = q v B",
+        "Circular trajectory calculation: r = mv/(qB)",
+        "Relationship between magnetic field strength, particle speed, and path radius"
+      ]
     }
   ]
 }
