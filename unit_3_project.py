@@ -64,7 +64,7 @@ def display_rubric():
     </style>
 
     | Criteria | Weight |
-    | --- | --- |
+    |:--------:|:------:|
     | Conceptual Understanding & Clarity | 25% |
     | Quantitative Analysis & Accuracy | 30% |
     | Quality and Clarity of Diagrams | 20% |
@@ -115,6 +115,6 @@ def main():
     </div>
     '''
     st.markdown(footer, unsafe_allow_html=True)
-    
+
 if __name__ == "__main__":
     main()
