@@ -166,7 +166,6 @@ def main():
 
     # Footer with contact info and EKU logo
     footer = '''
-    ---
     <div style="display: flex; justify-content: space-between; align-items: center;">
         <div>
             This tool was developed for <b>PHY 132 - College Physics II</b> at Eastern Kentucky University.<br>
