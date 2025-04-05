@@ -18,7 +18,7 @@ def display_project_thumbnails(category, projects):
     for idx, project in enumerate(projects):
         thumbnail_path = get_thumbnail_path(category, project["title"], project["thumbnail"])
         with cols[idx % 3]:
-            st.image(thumbnail_path, use_column_width=True)
+            st.image(thumbnail_path, use_container_width=True)
             if st.button(project["title"]):
                 st.session_state.selected_project = (category, project["title"])
 
@@ -29,7 +29,7 @@ def display_project_details(category, project):
     st.markdown(f"[📄 View Rubric]({project['rubric_link']})")
     
     thumbnail_path = get_thumbnail_path(category, project["title"], project["thumbnail"])
-    st.image(thumbnail_path, use_column_width=True)
+    st.image(thumbnail_path, use_container_width=True)
 
     if st.button("⬅️ Back to Projects"):
         st.session_state.selected_project = None
