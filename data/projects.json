@@ -20,13 +20,13 @@
     },
     {
       "title": "Radiation Belts (Van Allen Belts)",
-      "thumbnail": "radiation_belts_thumbnail.png",
+      "thumbnail": "radiation_belts_thumbnail.jpeg",
       "description": "Discuss the formation, stability, and hazard posed by Earth’s radiation belts.\n\n**Task:** Clearly explain how Earth’s magnetic field traps charged particles, including diagrams.",
       "rubric_link": "https://example.com/vanallen_rubric.pdf"
     },
     {
       "title": "Medical Application: Proton Therapy (Magnetic Steering)",
-      "thumbnail": "proton_therapy_thumbnail.png",
+      "thumbnail": "proton_therapy_thumbnail.jpeg",
       "description": "Explain how magnets precisely steer proton beams to treat tumors.\n\n**Task:** Discuss physics principles involved; include conceptual diagrams or animations.",
       "rubric_link": "https://example.com/protontherapy_rubric.pdf"
     }
