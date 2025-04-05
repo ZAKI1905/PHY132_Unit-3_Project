@@ -8,7 +8,7 @@
     },
     {
       "title": "Magnetic Torque on Satellites (Attitude Control Systems)",
-      "thumbnail": "data/img/satellite/magnetorquer_thumbnail.png",
+      "thumbnail": "data/img/satellite/magnetorquer_thumbnail.jpeg",
       "description": "Investigate how spacecraft use magnetorquers to adjust orientation.\n\n**Task:** Explain how torque is generated using Earth’s magnetic field, illustrating clearly with diagrams.",
       "rubric_link": "https://example.com/magnetorquer_rubric.pdf"
     },
