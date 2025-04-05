@@ -1,7 +1,7 @@
 import streamlit as st
 import json
 
-# Load simplified projects data
+# Load projects data
 def load_projects():
     with open('data/projects.json', 'r') as file:
         return json.load(file)
@@ -26,18 +26,65 @@ def display_project_thumbnails(category, projects):
 def display_project_details(category, project):
     st.header(project["title"])
     st.write(project["description"])
-    st.markdown(f"[📄 View Rubric]({project['rubric_link']})")
-    
     thumbnail_path = get_thumbnail_path(category, project["title"], project["thumbnail"])
     st.image(thumbnail_path, use_container_width=True)
 
     if st.button("⬅️ Back to Projects"):
         st.session_state.selected_project = None
 
+# Display Rubric
+def display_rubric():
+    st.header("📌 Project Grading Rubric")
+    rubric_markdown = """
+    <style>
+    table {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        font-family: sans-serif;
+    }
+    th, td {
+        padding: 10px;
+        text-align: center;
+        border-bottom: 1px solid #ddd;
+    }
+    th {
+        background-color: #4CAF50;
+        color: white;
+    }
+    tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+    tr:hover {
+        background-color: #ddd;
+    }
+    </style>
+
+    | Criteria | Weight |
+    | --- | --- |
+    | Conceptual Understanding & Clarity | 25% |
+    | Quantitative Analysis & Accuracy | 30% |
+    | Quality and Clarity of Diagrams | 20% |
+    | Analytical Depth & Real-world Connections | 15% |
+    | Overall Presentation & Organization | 10% |
+    """
+    st.markdown(rubric_markdown, unsafe_allow_html=True)
+
 # Main function
 def main():
     st.title("PHY132 Project Showcase")
     projects_data = load_projects()
+
+    # Sidebar Navigation
+    st.sidebar.title("Navigation")
+    selection = st.sidebar.radio("Go to:", ["🏠 Projects", "📌 Rubric"])
+
+    if selection == "📌 Rubric":
+        display_rubric()
+        return
 
     if "selected_project" not in st.session_state:
         st.session_state.selected_project = None

@@ -3,32 +3,27 @@
     {
       "title": "Analyzing the Earth’s Magnetosphere",
       "thumbnail": "magnetosphere_thumbnail.jpeg",
-      "description": "Explain the solar wind interaction and magnetosphere formation. Discuss protective effects on Earth’s atmosphere and implications for life.\n\n**Task:** Diagram Earth’s magnetosphere and explain particle deflection paths clearly.",
-      "rubric_link": "https://example.com/magnetosphere_rubric.pdf"
+      "description": "Explain the solar wind interaction and magnetosphere formation. Discuss protective effects on Earth’s atmosphere and implications for life.\n\n**Task:** Diagram Earth’s magnetosphere and explain particle deflection paths clearly."
     },
     {
       "title": "Magnetic Torque on Satellites (Attitude Control Systems)",
       "thumbnail": "magnetorquer_thumbnail.jpeg",
-      "description": "Investigate how spacecraft use magnetorquers to adjust orientation.\n\n**Task:** Explain how torque is generated using Earth’s magnetic field, illustrating clearly with diagrams.",
-      "rubric_link": "https://example.com/magnetorquer_rubric.pdf"
+      "description": "Investigate how spacecraft use magnetorquers to adjust orientation.\n\n**Task:** Explain how torque is generated using Earth’s magnetic field, illustrating clearly with diagrams."
     },
     {
       "title": "Particle Accelerators and Magnetic Fields",
       "thumbnail": "accelerators_thumbnail.jpeg",
-      "description": "Describe how magnetic fields steer charged particle beams in cyclotrons or synchrotrons.\n\n**Task:** Explain with diagrams why magnetic fields affect direction, but not speed.",
-      "rubric_link": "https://example.com/accelerator_rubric.pdf"
+      "description": "Describe how magnetic fields steer charged particle beams in cyclotrons or synchrotrons.\n\n**Task:** Explain with diagrams why magnetic fields affect direction, but not speed."
     },
     {
       "title": "Radiation Belts (Van Allen Belts)",
       "thumbnail": "radiation_belts_thumbnail.jpeg",
-      "description": "Discuss the formation, stability, and hazard posed by Earth’s radiation belts.\n\n**Task:** Clearly explain how Earth’s magnetic field traps charged particles, including diagrams.",
-      "rubric_link": "https://example.com/vanallen_rubric.pdf"
+      "description": "Discuss the formation, stability, and hazard posed by Earth’s radiation belts.\n\n**Task:** Clearly explain how Earth’s magnetic field traps charged particles, including diagrams."
     },
     {
       "title": "Medical Application: Proton Therapy (Magnetic Steering)",
       "thumbnail": "proton_therapy_thumbnail.jpeg",
-      "description": "Explain how magnets precisely steer proton beams to treat tumors.\n\n**Task:** Discuss physics principles involved; include conceptual diagrams or animations.",
-      "rubric_link": "https://example.com/protontherapy_rubric.pdf"
+      "description": "Explain how magnets precisely steer proton beams to treat tumors.\n\n**Task:** Discuss physics principles involved; include conceptual diagrams or animations."
     }
   ]
 }
