@@ -14,7 +14,6 @@ def display_project_thumbnails(projects):
     buttons = {}
     for idx, project in enumerate(projects):
         with cols[idx % 3]:
-            st.markdown(project["thumbnail"])
             st.image(project["thumbnail"], use_container_width=True)
             if st.button(project["title"]):
                 st.session_state.selected_project = project["title"]
@@ -30,8 +29,6 @@ def display_project_details(project):
 # Main app logic
 def main():
     st.title("PHY132 Project Showcase")
-
-    st.image("data/img/magnetosphere/magnetosphere_thumbnail.jpeg")
     
     projects_data = load_projects()
 
