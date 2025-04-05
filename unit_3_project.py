@@ -32,12 +32,11 @@ def display_project_thumbnails(category, projects):
         with cols[idx % 3]:
             if assigned:
                 st.image(thumbnail_path, use_container_width=True, caption="❌ Project Taken")
-                st.button(project["title"], disabled=True)
             else:
                 st.image(thumbnail_path, use_container_width=True)
-                if st.button(project["title"]):
-                    st.session_state.selected_project = (category, project["title"])
-
+            if st.button(project["title"]):
+                st.session_state.selected_project = (category, project["title"])
+                
 def update_project_assignment(category, title, student_id):
     with open("data/projects.json", "r") as f:
         data = json.load(f)
@@ -49,7 +48,17 @@ def update_project_assignment(category, title, student_id):
 
     with open("data/projects.json", "w") as f:
         json.dump(data, f, indent=2)
-                           
+
+def check_student_already_assigned(student_id):
+    with open("data/projects.json", "r") as f:
+        data = json.load(f)
+
+    for category_projects in data.values():
+        for proj in category_projects:
+            if proj.get("assigned_to", "") == student_id:
+                return True
+    return False
+
 def display_project_details(category, project):
     st.header(project["title"])
     thumbnail_path = get_thumbnail_path(category, project["title"], project["thumbnail"])
@@ -69,15 +78,19 @@ def display_project_details(category, project):
 
     assigned_id = project.get("assigned_to", "")
     if assigned_id:
-        st.success(f"✅ This project has already been adopted by student ID: {assigned_id}")
+        st.info(f"✅ This project has been adopted by student ID: {assigned_id}")
     else:
         with st.form(key="adopt_form"):
             student_id = st.text_input("Enter your assigned student ID to adopt this project")
             submit = st.form_submit_button("📥 Adopt This Project")
             if submit and student_id.strip():
-                update_project_assignment(category, project["title"], student_id.strip())
-                st.success(f"Project successfully adopted by ID: {student_id.strip()}")
-                st.rerun()
+                student_id = student_id.strip()
+                if check_student_already_assigned(student_id):
+                    st.error("⚠️ You have already adopted a project. Each student may only adopt one.")
+                else:
+                    update_project_assignment(category, project["title"], student_id)
+                    st.success(f"✅ Project successfully adopted by ID: {student_id}")
+                    st.rerun()
 
     if st.button("⬅️ Back to Projects"):
         st.session_state.selected_project = None
