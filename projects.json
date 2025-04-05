@@ -1,0 +1,34 @@
+{
+    "Magnetic Fields and Forces": [
+        {
+            "title": "Particle Accelerators and Magnetic Fields",
+            "thumbnail": "accelerators_thumbnail.jpeg",
+            "description": "Replace with your description.",
+            "rubric_link": "Replace with rubric link."
+        },
+        {
+            "title": "Radiation Belts",
+            "thumbnail": "radiation_belts_thumbnail.jpeg",
+            "description": "Replace with your description.",
+            "rubric_link": "Replace with rubric link."
+        },
+        {
+            "title": "Magnetic Torque on Satellites",
+            "thumbnail": "magnetorquer_thumbnail.jpeg",
+            "description": "Replace with your description.",
+            "rubric_link": "Replace with rubric link."
+        },
+        {
+            "title": "Analyzing the Earths Magnetosphere",
+            "thumbnail": "magnetosphere_thumbnail.jpeg",
+            "description": "Replace with your description.",
+            "rubric_link": "Replace with rubric link."
+        },
+        {
+            "title": "Medical Application Proton Therapy",
+            "thumbnail": "proton_therapy_thumbnail.jpeg",
+            "description": "Replace with your description.",
+            "rubric_link": "Replace with rubric link."
+        }
+    ]
+}
