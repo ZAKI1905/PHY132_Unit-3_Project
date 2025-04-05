@@ -30,6 +30,8 @@ def display_project_details(project):
 def main():
     st.title("PHY132 Project Showcase")
 
+    st.image("data/img/magnetosphere/magnetosphere_thumbnail.jpg")
+    
     projects_data = load_projects()
 
     if "selected_project" not in st.session_state:
