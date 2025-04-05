@@ -101,5 +101,20 @@ def main():
                 display_project_details(category, project)
                 break
 
+    # Footer with contact info and EKU logo
+    footer = '''
+    ---
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+        <div>
+            This tool was developed for <b>PHY 132 - College Physics II</b> at Eastern Kentucky University.<br>
+            For questions, contact: <b>Professor Zakeri</b> (m.zakeri@eku.edu)
+        </div>
+        <div>
+            <img src="https://raw.githubusercontent.com/ZAKI1905/phy132-kirchhoff-checker/main/img/PrimaryLogo_Maroon.png" width="150">
+        </div>
+    </div>
+    '''
+    st.markdown(footer, unsafe_allow_html=True)
+    
 if __name__ == "__main__":
     main()
