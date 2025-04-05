@@ -16,7 +16,8 @@
         "Magnetic fields and field lines",
         "Charged particle motion in magnetic fields",
         "Lorentz force: F = q v B sin(θ)"
-      ]
+      ],
+      "assigned_to": ""
     },
     {
       "title": "Magnetic Torque on Satellites (Attitude Control Systems)",
@@ -34,7 +35,8 @@
         "Right-hand rule for magnetic force and torque",
         "Torque equation: τ = μ B sin(θ)",
         "Magnetic moment of coil: μ = NIA"
-      ]
+      ],
+      "assigned_to": ""
     },
     {
       "title": "Particle Accelerators and Magnetic Fields",
@@ -51,7 +53,8 @@
         "Circular motion of charged particles in magnetic fields",
         "Lorentz force: F = q v B",
         "Centripetal force balance: q v B = m v²/r"
-      ]
+      ],
+      "assigned_to": ""
     },
     {
       "title": "Radiation Belts (Van Allen Belts)",
@@ -68,7 +71,8 @@
         "Magnetic trapping of charged particles",
         "Helical motion in magnetic fields",
         "Lorentz force and particle gyration"
-      ]
+      ],
+      "assigned_to": ""
     },
     {
       "title": "Medical Application: Proton Therapy (Magnetic Steering)",
@@ -86,7 +90,8 @@
         "Lorentz force: F = q v B",
         "Circular trajectory calculation: r = mv/(qB)",
         "Relationship between magnetic field strength, particle speed, and path radius"
-      ]
+      ],
+      "assigned_to": ""
     }
   ]
 }

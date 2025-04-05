@@ -23,23 +23,61 @@ def display_project_thumbnails(category, projects):
                 st.session_state.selected_project = (category, project["title"])
 
 # Display detailed project information
+def display_project_thumbnails(category, projects):
+    cols = st.columns(3)
+    for idx, project in enumerate(projects):
+        thumbnail_path = get_thumbnail_path(category, project["title"], project["thumbnail"])
+        assigned = project.get("assigned_to", "") != ""
+
+        with cols[idx % 3]:
+            if assigned:
+                st.image(thumbnail_path, use_container_width=True, caption="❌ Project Taken")
+                st.button(project["title"], disabled=True)
+            else:
+                st.image(thumbnail_path, use_container_width=True)
+                if st.button(project["title"]):
+                    st.session_state.selected_project = (category, project["title"])
+
+def update_project_assignment(category, title, student_id):
+    with open("data/projects.json", "r") as f:
+        data = json.load(f)
+
+    for project in data[category]:
+        if project["title"] == title:
+            project["assigned_to"] = student_id
+            break
+
+    with open("data/projects.json", "w") as f:
+        json.dump(data, f, indent=2)
+                           
 def display_project_details(category, project):
     st.header(project["title"])
-    
     thumbnail_path = get_thumbnail_path(category, project["title"], project["thumbnail"])
     st.image(thumbnail_path, use_container_width=True)
 
     st.subheader("📌 Objectives")
-    for obj in project["objectives"]:
+    for obj in project.get("objectives", []):
         st.write(f"- {obj}")
 
     st.subheader("📝 Tasks")
-    for task in project["tasks"]:
+    for task in project.get("tasks", []):
         st.write(f"- {task}")
 
     st.subheader("🧲 Relevant Physics Concepts and Formulas (PHY132)")
-    for concept in project["physics_concepts"]:
+    for concept in project.get("physics_concepts", []):
         st.write(f"- {concept}")
+
+    assigned_id = project.get("assigned_to", "")
+    if assigned_id:
+        st.success(f"✅ This project has already been adopted by student ID: {assigned_id}")
+    else:
+        with st.form(key="adopt_form"):
+            student_id = st.text_input("Enter your assigned student ID to adopt this project")
+            submit = st.form_submit_button("📥 Adopt This Project")
+            if submit and student_id.strip():
+                update_project_assignment(category, project["title"], student_id.strip())
+                st.success(f"Project successfully adopted by ID: {student_id.strip()}")
+                st.rerun()
 
     if st.button("⬅️ Back to Projects"):
         st.session_state.selected_project = None
