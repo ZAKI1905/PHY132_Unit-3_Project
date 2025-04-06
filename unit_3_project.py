@@ -2,7 +2,7 @@ import streamlit as st
 import json
 from sheets import log_assignment, get_project_statuses, update_project_status
 
-# Load project metadata from JSON
+# Load project metadata from JSON.
 def load_projects():
     with open('data/projects.json', 'r') as file:
         return json.load(file)
@@ -12,12 +12,11 @@ def get_thumbnail_path(category, title, thumbnail_file):
     title_dir = title.replace(" ", "_")
     return f"data/{category_dir}/{title_dir}/img/{thumbnail_file}"
 
-# Display project thumbnails using status from Google Sheets
+# Display thumbnails for projects.
 def display_project_thumbnails(category, projects, statuses):
     cols = st.columns(3)
     for idx, project in enumerate(projects):
         thumbnail_path = get_thumbnail_path(category, project["title"], project["thumbnail"])
-        # Get current status from the Google Sheet (default to "available")
         key = (category, project["title"])
         proj_status = statuses.get(key, {"Status": "available"})
         is_taken = proj_status["Status"].lower() in ["taken", "adopted"]
@@ -29,20 +28,20 @@ def display_project_thumbnails(category, projects, statuses):
             if st.button(project["title"]):
                 st.session_state.selected_project = (category, project["title"])
 
-# Log the assignment and update the status sheet using the logged-in username
+# Log a project adoption event and update its status as taken.
 def update_project_assignment(category, title, username):
     st.write("Logging the assignment to Google Sheets")
-    log_assignment(category, title, username)
+    log_assignment(category, title, username, action="adopted")
     update_project_status(category, title, username, new_status="taken")
 
-# Check if the student has already adopted a project by scanning the status sheet.
+# Check if the logged-in student already has a project.
 def check_student_already_assigned(username, statuses):
     for status in statuses.values():
         if status.get("Student ID", "") == username:
             return True
     return False
 
-# Show detailed project information with an adopt button that uses the logged-in username.
+# Display detailed project info with an "Adopt" button that uses the logged-in username.
 def display_project_details(category, project, statuses):
     st.header(project["title"])
     thumbnail_path = get_thumbnail_path(category, project["title"], project["thumbnail"])
@@ -68,8 +67,7 @@ def display_project_details(category, project, statuses):
         username = st.session_state.get("username")
         if username:
             if st.button("Adopt This Project"):
-                # Refresh statuses to capture any recent changes
-                statuses = get_project_statuses()
+                statuses = get_project_statuses()  # refresh statuses
                 if check_student_already_assigned(username, statuses):
                     st.error("⚠️ You have already adopted a project. Each student may only adopt one.")
                 else:
@@ -123,37 +121,77 @@ def display_rubric():
     """
     st.markdown(rubric_markdown, unsafe_allow_html=True)
 
-# Display the logged-in student's profile
+# Profile page shows username, adopted project (if any), and a sign-out button.
 def display_profile(statuses):
     st.header("Your Profile")
     username = st.session_state.get("username", "Unknown")
     st.write(f"**Username:** {username}")
     adopted_project = None
-    # Look for the project adopted by this student in the status sheet.
     for key, status in statuses.items():
         if status.get("Student ID", "") == username:
-            adopted_project = key  # key is (category, title)
+            adopted_project = key
             break
     if adopted_project:
         category, title = adopted_project
         st.write(f"**Adopted Project:** {title} in {category}")
     else:
         st.write("You have not adopted any project yet.")
+    
+    # Sign out button.
+    if st.button("Sign Out"):
+        st.session_state["authenticated"] = False
+        if "username" in st.session_state:
+            del st.session_state["username"]
+        st.rerun()
 
-# The main application that combines everything together.
+# "My Project" page: shows the student's project and offers an option to abandon it.
+def display_my_project(statuses):
+    st.header("My Project")
+    username = st.session_state.get("username", "")
+    adopted_project = None
+    for key, status in statuses.items():
+        if status.get("Student ID", "") == username:
+            adopted_project = key
+            break
+    if adopted_project:
+        category, title = adopted_project
+        st.write(f"**Project:** {title} in {category}")
+        # Basic description could be enhanced as needed.
+        if st.button("Abandon Project"):
+            # Log the abandonment event and update status to available.
+            log_assignment(category, title, username, action="abandoned")
+            update_project_status(category, title, "", new_status="available")
+            st.success("You have abandoned the project. It is now available for adoption.")
+            st.rerun()
+    else:
+        st.write("You have not adopted any project.")
+
+# Main application logic.
 def main_app():
     st.title("PHY132 Project Showcase")
     projects_data = load_projects()
     statuses = get_project_statuses()
 
-    # Sidebar Navigation now includes a Profile option.
-    st.sidebar.title("Navigation")
-    selection = st.sidebar.radio("Go to:", ["🏠 Projects", "📌 Rubric", "👤 Profile"])
+    # Build navigation options dynamically.
+    nav_options = ["🏠 Projects", "📌 Rubric", "👤 Profile"]
+    username = st.session_state.get("username")
+    # If the student has an adopted project, add "My Project" to navigation.
+    if username:
+        for status in statuses.values():
+            if status.get("Student ID", "") == username:
+                if "📁 My Project" not in nav_options:
+                    nav_options.insert(1, "📁 My Project")
+                break
+
+    selection = st.sidebar.radio("Go to:", nav_options)
     if selection == "📌 Rubric":
         display_rubric()
         return
     elif selection == "👤 Profile":
         display_profile(statuses)
+        return
+    elif selection == "📁 My Project":
+        display_my_project(statuses)
         return
 
     if "selected_project" not in st.session_state:
@@ -184,7 +222,7 @@ def main_app():
     '''
     st.markdown(footer, unsafe_allow_html=True)
 
-# The login page: once credentials are validated, we save the username in session state.
+# Simple login page.
 def login_page():
     st.title("Login")
     username = st.text_input("Username")
@@ -194,11 +232,11 @@ def login_page():
         if username in credentials and credentials[username] == password:
             st.session_state["authenticated"] = True
             st.session_state["username"] = username
-            st.experimental_rerun()  # Refresh to load the main page
+            st.rerun()
         else:
             st.error("Invalid username or password.")
 
-# Main entry point
+# Main entry point.
 def main():
     if "authenticated" not in st.session_state:
         st.session_state["authenticated"] = False
