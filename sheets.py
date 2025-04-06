@@ -61,11 +61,12 @@ def update_project_status(category, title, student_id, new_status="taken"):
 def log_assignment(category, title, student_id, action="adopted"):
     try:
         st.toast(f"📡 Logging project {action}...")
-        sheet = get_google_sheet()
+        spreadsheet = get_google_sheet()  # Returns the full spreadsheet object.
+        log_sheet = spreadsheet.worksheet("ProjectAssignments")  # Select the correct tab.
         st.toast("✅ Connected to sheet.")
         timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         # Append a row that includes the action.
-        sheet.append_row([category, title, student_id, action, timestamp])
+        log_sheet.append_row([category, title, student_id, action, timestamp])
         st.success("✅ Project event logged to Google Sheet.")
     except Exception as e:
         st.error(f"❌ Failed to log project event: {e}")
