@@ -1,3 +1,4 @@
+# from sheets import log_assignment
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 from datetime import datetime
@@ -39,3 +40,7 @@ def log_assignment(category, title, student_id):
         print("Row appended.")
     except Exception as e:
         print("❌ ERROR logging assignment:", e)
+        
+# Should create a row in your sheet
+log_assignment("Debug", "Direct call test", "STUDENT_XYZ")
+print("✅ If you see this, the call was made.")
