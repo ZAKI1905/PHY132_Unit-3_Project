@@ -41,18 +41,29 @@ import streamlit as st
 #     except Exception as e:
 #         print("❌ ERROR logging assignment:", e)
         
+# def get_google_sheet(sheet_name="PHY132_Unit_3_project"):
+#     scope = [
+#         "https://spreadsheets.google.com/feeds",
+#         "https://www.googleapis.com/auth/drive"
+#     ]
+#     creds = ServiceAccountCredentials.from_json_keyfile_name(
+#         "secrets/project-assignment-bot.json", scope
+#     )
+#     client = gspread.authorize(creds)
+#     sheet = client.open(sheet_name)
+#     return sheet.worksheet("ProjectAssignments")  # Or .sheet1 if using first tab
 
 def get_google_sheet(sheet_name="PHY132_Unit_3_project"):
     scope = [
         "https://spreadsheets.google.com/feeds",
         "https://www.googleapis.com/auth/drive"
     ]
-    creds = ServiceAccountCredentials.from_json_keyfile_name(
-        "secrets/project-assignment-bot.json", scope
-    )
+    # Load credentials from Streamlit secrets
+    creds_dict = st.secrets["gcp_service_account"]
+    creds = ServiceAccountCredentials.from_json_keyfile_dict(creds_dict, scope)
     client = gspread.authorize(creds)
     sheet = client.open(sheet_name)
-    return sheet.worksheet("ProjectAssignments")  # Or .sheet1 if using first tab
+    return sheet.worksheet("ProjectAssignments")
 
 def log_assignment(category, title, student_id):
     try:

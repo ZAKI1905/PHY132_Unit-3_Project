@@ -52,7 +52,7 @@ def update_project_assignment(category, title, student_id):
         json.dump(data, f, indent=2)
 
     # Log the assignment to Google Sheets
-    st.write("Logging the assignment to Google Sheets...")
+    st.write("Logging the assignment to Google Sheets")
     log_assignment(category, title, student_id)
 
 def check_student_already_assigned(student_id):
@@ -84,11 +84,7 @@ def display_project_details(category, project):
 
     assigned_id = project.get("assigned_to", "")
     if assigned_id:
-        if st.session_state.get("just_adopted") == assigned_id:
-            st.success(f"✅ Project successfully adopted by ID: {assigned_id}")
-            del st.session_state["just_adopted"]
-        else:
-            st.info(f"✅ This project has been adopted by student ID: {assigned_id}")
+        st.info(f"✅ This project has been adopted by student ID: {assigned_id}")
     else:
         with st.form(key="adopt_form"):
             student_id = st.text_input("Enter your assigned student ID to adopt this project")
@@ -99,10 +95,11 @@ def display_project_details(category, project):
                     st.error("⚠️ You have already adopted a project. Each student may only adopt one.")
                 else:
                     update_project_assignment(category, project["title"], student_id)
-                    st.session_state["just_adopted"] = student_id
+                    st.success(f"✅ Project successfully adopted by ID: {student_id}")
                     st.rerun()
-        if st.button("⬅️ Back to Projects"):
-            st.session_state.selected_project = None
+
+    if st.button("⬅️ Back to Projects"):
+        st.session_state.selected_project = None
 
 # Display Rubric
 def display_rubric():
