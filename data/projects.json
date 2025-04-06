@@ -2,6 +2,7 @@
   "Magnetic Fields and Forces": [
     {
       "title": "Analyzing the Earth\u2019s Magnetosphere",
+      "directory": "Analyz_Earths_Magnetos",
       "thumbnail": "magnetosphere_thumbnail.jpeg",
       "objectives": [
         "Understand the structure and function of Earth's magnetosphere.",
@@ -21,6 +22,7 @@
     },
     {
       "title": "Magnetic Torque on Satellites (Attitude Control Systems)",
+      "directory": "Mag_Tor_on_Sat",
       "thumbnail": "magnetorquer_thumbnail.jpeg",
       "objectives": [
         "Understand how spacecraft use magnetic fields for attitude control.",
@@ -40,6 +42,7 @@
     },
     {
       "title": "Particle Accelerators and Magnetic Fields",
+      "directory": "Part_Accel_Mag_Fields",
       "thumbnail": "accelerators_thumbnail.jpeg",
       "objectives": [
         "Explain the role of magnetic fields in particle accelerators.",
@@ -58,6 +61,7 @@
     },
     {
       "title": "Radiation Belts (Van Allen Belts)",
+      "directory": "Van_Allen_Belts",
       "thumbnail": "radiation_belts_thumbnail.jpeg",
       "objectives": [
         "Describe Earth's radiation belts and their formation.",
@@ -76,6 +80,7 @@
     },
     {
       "title": "Medical Application: Proton Therapy (Magnetic Steering)",
+      "directory": "Proton_Therapy",
       "thumbnail": "proton_therapy_thumbnail.jpeg",
       "objectives": [
         "Understand the physical principles of proton therapy.",
