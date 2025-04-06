@@ -18,3 +18,4 @@ def log_assignment(category, title, student_id):
     sheet = get_google_sheet()
     timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     sheet.append_row([category, title, student_id, timestamp])
+    
