@@ -52,6 +52,7 @@ def update_project_assignment(category, title, student_id):
         json.dump(data, f, indent=2)
 
     # Log the assignment to Google Sheets
+    st.write("Logging the assignment to Google Sheets...")
     log_assignment(category, title, student_id)
 
 def check_student_already_assigned(student_id):
