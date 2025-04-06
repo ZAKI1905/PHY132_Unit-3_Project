@@ -1,6 +1,6 @@
 import json
 import streamlit as st
-from sheets import get_project_statuses, update_project_assignment
+from sheets import get_project_statuses, log_assignment, update_project_status
 
 def load_projects():
     with open('data/projects.json', 'r') as file:
@@ -48,6 +48,12 @@ def check_student_already_assigned(username, statuses):
             return True
     return False
 
+# Log a project adoption event and update its status as taken.
+def update_project_assignment(category, title, username):
+	st.write("Logging the assignment to Google Sheets")
+	log_assignment(category, title, username, action="adopted")
+	update_project_status(category, title, username, new_status="taken")
+    
 def display_project_details(category, project, statuses):
 	st.header(project["title"])
     # Use the project["directory"] field for file paths.
