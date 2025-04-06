@@ -2,6 +2,19 @@ import streamlit as st
 import json
 from sheets import log_assignment, get_project_statuses, update_project_status
 
+def login_page():
+    st.title("Login")
+    username = st.text_input("Username")
+    password = st.text_input("Password", type="password")
+    
+    if st.button("Login"):
+        credentials = st.secrets["login"]
+        if username in credentials and credentials[username] == password:
+            st.session_state["authenticated"] = True
+            st.experimental_rerun()  # Refresh the app to load the main page
+        else:
+            st.error("Invalid username or password.")
+
 # Load projects metadata from JSON (for objectives, thumbnails, etc.)
 def load_projects():
     with open('data/projects.json', 'r') as file:
@@ -125,7 +138,7 @@ def display_rubric():
     """
     st.markdown(rubric_markdown, unsafe_allow_html=True)
 
-def main():
+def main_app():
     st.title("PHY132 Project Showcase")
     projects_data = load_projects()
     # Get the current project statuses from Google Sheets.
@@ -164,6 +177,16 @@ def main():
     </div>
     '''
     st.markdown(footer, unsafe_allow_html=True)
+
+def main():
+    # Initialize session state for authentication if not already set.
+    if "authenticated" not in st.session_state:
+        st.session_state["authenticated"] = False
+
+    if not st.session_state["authenticated"]:
+        login_page()
+    else:
+        main_app()
 
 if __name__ == "__main__":
     main()
