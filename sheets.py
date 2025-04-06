@@ -70,3 +70,14 @@ def log_assignment(category, title, student_id, action="adopted"):
         st.success("✅ Project event logged to Google Sheet.")
     except Exception as e:
         st.error(f"❌ Failed to log project event: {e}")
+        
+def log_sign_event(username, action="login"):
+    try:
+        st.toast(f"Logging sign-{action} event...")
+        spreadsheet = get_google_sheet()  # Returns the full spreadsheet object.
+        sign_in_sheet = spreadsheet.worksheet("SignInLog")  # Select the SignInLog tab.
+        timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        sign_in_sheet.append_row([username, action, timestamp])
+        st.toast("Sign event logged.")
+    except Exception as e:
+        st.error(f"Failed to log sign event: {e}")

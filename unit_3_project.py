@@ -1,6 +1,6 @@
 import streamlit as st
 import json
-from sheets import log_assignment, get_project_statuses, update_project_status
+from sheets import log_assignment, get_project_statuses, update_project_status, log_sign_event
 
 # Load project metadata from JSON.
 def load_projects():
@@ -139,6 +139,7 @@ def display_profile(statuses):
     
     # Sign out button.
     if st.button("Sign Out"):
+        log_sign_event(st.session_state["username"], action="logout")
         st.session_state["authenticated"] = False
         if "username" in st.session_state:
             del st.session_state["username"]
@@ -168,7 +169,7 @@ def display_my_project(statuses):
 
 # Main application logic.
 def main_app():
-    st.title("PHY132 Project Showcase")
+    st.title("PHY-132 Unit 3 Projects")
     projects_data = load_projects()
     statuses = get_project_statuses()
 
@@ -232,6 +233,7 @@ def login_page():
         if username in credentials and credentials[username] == password:
             st.session_state["authenticated"] = True
             st.session_state["username"] = username
+            log_sign_event(username, action="login")
             st.rerun()
         else:
             st.error("Invalid username or password.")
