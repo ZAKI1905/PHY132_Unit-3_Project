@@ -1,71 +1,51 @@
 import streamlit as st
 import json
-from sheets import log_assignment
+from sheets import log_assignment, get_project_statuses, update_project_status
 
-# Load projects data
+# Load projects metadata from JSON (for objectives, thumbnails, etc.)
 def load_projects():
     with open('data/projects.json', 'r') as file:
         return json.load(file)
 
-# Generate thumbnail path automatically
 def get_thumbnail_path(category, title, thumbnail_file):
     category_dir = category.replace(" ", "_")
     title_dir = title.replace(" ", "_")
     return f"data/{category_dir}/{title_dir}/img/{thumbnail_file}"
 
-# Display project thumbnails
-def display_project_thumbnails(category, projects):
+# Display project thumbnails using status from Google Sheets
+def display_project_thumbnails(category, projects, statuses):
     cols = st.columns(3)
     for idx, project in enumerate(projects):
         thumbnail_path = get_thumbnail_path(category, project["title"], project["thumbnail"])
+        # Use status from Google Sheet; default to "available" if not found.
+        key = (category, project["title"])
+        proj_status = statuses.get(key, {"Status": "available"})
+        is_taken = proj_status["Status"].lower() in ["taken", "adopted"]
         with cols[idx % 3]:
-            st.image(thumbnail_path, use_container_width=True)
-            if st.button(project["title"]):
-                st.session_state.selected_project = (category, project["title"])
-
-# Display detailed project information
-def display_project_thumbnails(category, projects):
-    cols = st.columns(3)
-    for idx, project in enumerate(projects):
-        thumbnail_path = get_thumbnail_path(category, project["title"], project["thumbnail"])
-        assigned = project.get("assigned_to", "") != ""
-
-        with cols[idx % 3]:
-            if assigned:
+            if is_taken:
                 st.image(thumbnail_path, use_container_width=True, caption="❌ Project Taken")
             else:
                 st.image(thumbnail_path, use_container_width=True)
             if st.button(project["title"]):
                 st.session_state.selected_project = (category, project["title"])
-                
+
+# Update the project assignment:
+# Log the assignment and update the status sheet.
 def update_project_assignment(category, title, student_id):
-    # Update local JSON for UI tracking
-    with open("data/projects.json", "r") as f:
-        data = json.load(f)
-
-    for project in data[category]:
-        if project["title"] == title:
-            project["assigned_to"] = student_id
-            break
-
-    with open("data/projects.json", "w") as f:
-        json.dump(data, f, indent=2)
-
-    # Log the assignment to Google Sheets
+    # Log the assignment in the log sheet
     st.write("Logging the assignment to Google Sheets")
     log_assignment(category, title, student_id)
+    # Update the status sheet (set the project as taken/adopted)
+    update_project_status(category, title, student_id, new_status="taken")
 
-def check_student_already_assigned(student_id):
-    with open("data/projects.json", "r") as f:
-        data = json.load(f)
-
-    for category_projects in data.values():
-        for proj in category_projects:
-            if proj.get("assigned_to", "") == student_id:
-                return True
+# Check if the student has already been assigned a project by scanning the status sheet.
+def check_student_already_assigned(student_id, statuses):
+    for status in statuses.values():
+        if status.get("Student ID", "") == student_id:
+            return True
     return False
 
-def display_project_details(category, project):
+def display_project_details(category, project, statuses):
     st.header(project["title"])
     thumbnail_path = get_thumbnail_path(category, project["title"], project["thumbnail"])
     st.image(thumbnail_path, use_container_width=True)
@@ -82,16 +62,20 @@ def display_project_details(category, project):
     for concept in project.get("physics_concepts", []):
         st.write(f"- {concept}")
 
-    assigned_id = project.get("assigned_to", "")
-    if assigned_id:
-        st.info(f"✅ This project has been adopted by student ID: {assigned_id}")
+    # Get the current status from the Google Sheet
+    key = (category, project["title"])
+    proj_status = statuses.get(key, {"Status": "available", "Student ID": ""})
+    if proj_status["Status"].lower() in ["taken", "adopted"]:
+        st.info(f"✅ This project has been adopted by student ID: {proj_status.get('Student ID')}")
     else:
         with st.form(key="adopt_form"):
             student_id = st.text_input("Enter your assigned student ID to adopt this project")
             submit = st.form_submit_button("📥 Adopt This Project")
             if submit and student_id.strip():
                 student_id = student_id.strip()
-                if check_student_already_assigned(student_id):
+                # Refresh statuses in case of recent changes
+                statuses = get_project_statuses()
+                if check_student_already_assigned(student_id, statuses):
                     st.error("⚠️ You have already adopted a project. Each student may only adopt one.")
                 else:
                     update_project_assignment(category, project["title"], student_id)
@@ -101,7 +85,6 @@ def display_project_details(category, project):
     if st.button("⬅️ Back to Projects"):
         st.session_state.selected_project = None
 
-# Display Rubric
 def display_rubric():
     st.header("📌 Project Grading Rubric")
     rubric_markdown = """
@@ -142,15 +125,14 @@ def display_rubric():
     """
     st.markdown(rubric_markdown, unsafe_allow_html=True)
 
-# Main function
 def main():
     st.title("PHY132 Project Showcase")
     projects_data = load_projects()
+    # Get the current project statuses from Google Sheets.
+    statuses = get_project_statuses()
 
-    # Sidebar Navigation
     st.sidebar.title("Navigation")
     selection = st.sidebar.radio("Go to:", ["🏠 Projects", "📌 Rubric"])
-
     if selection == "📌 Rubric":
         display_rubric()
         return
@@ -161,16 +143,15 @@ def main():
     if st.session_state.selected_project is None:
         for category, projects in projects_data.items():
             st.subheader(category)
-            display_project_thumbnails(category, projects)
+            display_project_thumbnails(category, projects, statuses)
             st.markdown("---")
     else:
         category, title = st.session_state.selected_project
         for project in projects_data[category]:
             if project["title"] == title:
-                display_project_details(category, project)
+                display_project_details(category, project, statuses)
                 break
 
-    # Footer with contact info and EKU logo
     footer = '''
     <div style="display: flex; justify-content: space-between; align-items: center;">
         <div>
@@ -183,7 +164,6 @@ def main():
     </div>
     '''
     st.markdown(footer, unsafe_allow_html=True)
-
 
 if __name__ == "__main__":
     main()
