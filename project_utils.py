@@ -1,6 +1,6 @@
 import json
 import streamlit as st
-from sheets import get_project_statuses, check_student_already_assigned, update_project_assignment
+from sheets import get_project_statuses, update_project_assignment
 
 def load_projects():
     with open('data/projects.json', 'r') as file:
@@ -41,7 +41,13 @@ def display_project_thumbnails(category, projects, statuses):
 #     st.subheader("🧲 Relevant Physics Concepts and Formulas (PHY132)")
 #     for concept in project.get("physics_concepts", []):
 #         st.write(f"- {concept}")
-        
+
+def check_student_already_assigned(username, statuses):
+    for status in statuses.values():
+        if status.get("Student ID", "") == username:
+            return True
+    return False
+
 def display_project_details(category, project, statuses):
 	st.header(project["title"])
     # Use the project["directory"] field for file paths.
