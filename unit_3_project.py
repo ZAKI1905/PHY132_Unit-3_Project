@@ -38,8 +38,6 @@ def display_project_thumbnails(category, projects):
             if st.button(project["title"]):
                 st.session_state.selected_project = (category, project["title"])
                 
-from sheets import log_assignment
-
 def update_project_assignment(category, title, student_id):
     # Update local JSON for UI tracking
     with open("data/projects.json", "r") as f:
