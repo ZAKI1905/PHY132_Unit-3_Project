@@ -185,5 +185,4 @@ def main():
 
 
 if __name__ == "__main__":
-    log_assignment("Test Category", "Test Project", "TEST123")
     main()
