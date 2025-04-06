@@ -11,7 +11,7 @@ def login_page():
         credentials = st.secrets["login"]
         if username in credentials and credentials[username] == password:
             st.session_state["authenticated"] = True
-            st.experimental_rerun()  # Refresh the app to load the main page
+            st.rerun()  # Refresh the app to load the main page
         else:
             st.error("Invalid username or password.")
 
