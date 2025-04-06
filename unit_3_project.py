@@ -75,7 +75,7 @@ def display_project_details(category, project, statuses):
                 else:
                     update_project_assignment(category, project["title"], username)
                     st.success(f"✅ Project successfully adopted by {username}")
-                    st.experimental_rerun()  # Or st.rerun if that’s what you're using.
+                    st.rerun()
         else:
             st.error("You must be logged in to adopt a project.")
 
