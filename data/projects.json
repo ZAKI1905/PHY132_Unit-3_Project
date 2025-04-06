@@ -17,7 +17,7 @@
         "Charged particle motion in magnetic fields",
         "Lorentz force: F = q v B sin(\u03b8)"
       ],
-      "assigned_to": "1001"
+      "assigned_to": ""
     },
     {
       "title": "Magnetic Torque on Satellites (Attitude Control Systems)",
@@ -91,7 +91,7 @@
         "Circular trajectory calculation: r = mv/(qB)",
         "Relationship between magnetic field strength, particle speed, and path radius"
       ],
-      "assigned_to": "1002"
+      "assigned_to": ""
     }
   ]
 }
