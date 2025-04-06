@@ -1,5 +1,6 @@
 import streamlit as st
 import json
+from sheets import log_assignment
 
 # Load projects data
 def load_projects():
@@ -37,7 +38,10 @@ def display_project_thumbnails(category, projects):
             if st.button(project["title"]):
                 st.session_state.selected_project = (category, project["title"])
                 
+from sheets import log_assignment
+
 def update_project_assignment(category, title, student_id):
+    # Update local JSON for UI tracking
     with open("data/projects.json", "r") as f:
         data = json.load(f)
 
@@ -48,6 +52,9 @@ def update_project_assignment(category, title, student_id):
 
     with open("data/projects.json", "w") as f:
         json.dump(data, f, indent=2)
+
+    # Log the assignment to Google Sheets
+    log_assignment(category, title, student_id)
 
 def check_student_already_assigned(student_id):
     with open("data/projects.json", "r") as f:
