@@ -103,7 +103,7 @@
     {
       "title": "Home Energy Audit (Applied Circuit Analysis)",
       "directory": "Home_Circuit_Analysis",
-      "thumbnail": "power_grid_thumbnail.jpeg",
+      "thumbnail": "home_circuit_thumbnail.jpeg",
       "objectives": [
         "Apply Ohm’s Law and power equations to household systems.",
         "Understand circuit load balancing and power usage."
