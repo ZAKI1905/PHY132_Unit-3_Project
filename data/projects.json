@@ -1,7 +1,7 @@
 {
   "Magnetic Fields and Forces": [
     {
-      "title": "Analyzing the Earth\u2019s Magnetosphere",
+      "title": "Analyzing the Earth’s Magnetosphere",
       "directory": "Analyz_Earths_Magnetos",
       "thumbnail": "magnetosphere_thumbnail.jpeg",
       "objectives": [
@@ -11,12 +11,12 @@
       ],
       "tasks": [
         "Clearly diagram Earth's magnetosphere, labeling key features (magnetopause, bow shock, radiation belts).",
-        "Explain how solar wind particles interact with Earth\u2019s magnetic field, illustrating their trajectories and deflection clearly."
+        "Explain how solar wind particles interact with Earth’s magnetic field, illustrating their trajectories and deflection clearly."
       ],
       "physics_concepts": [
         "Magnetic fields and field lines",
         "Charged particle motion in magnetic fields",
-        "Lorentz force: F = q v B sin(\u03b8)"
+        "Lorentz force: F = q v B sin(θ)"
       ],
       "assigned_to": ""
     },
@@ -35,8 +35,8 @@
       "physics_concepts": [
         "Magnetic torque and magnetic moment",
         "Right-hand rule for magnetic force and torque",
-        "Torque equation: \u03c4 = \u03bc B sin(\u03b8)",
-        "Magnetic moment of coil: \u03bc = NIA"
+        "Torque equation: τ = μ B sin(θ)",
+        "Magnetic moment of coil: μ = NIA"
       ],
       "assigned_to": ""
     },
@@ -55,7 +55,7 @@
       "physics_concepts": [
         "Circular motion of charged particles in magnetic fields",
         "Lorentz force: F = q v B",
-        "Centripetal force balance: q v B = m v\u00b2/r"
+        "Centripetal force balance: q v B = m v²/r"
       ],
       "assigned_to": ""
     },
@@ -95,6 +95,108 @@
         "Lorentz force: F = q v B",
         "Circular trajectory calculation: r = mv/(qB)",
         "Relationship between magnetic field strength, particle speed, and path radius"
+      ],
+      "assigned_to": ""
+    }
+  ],
+  "Course-Wide Projects": [
+    {
+      "title": "Home Energy Audit (Applied Circuit Analysis)",
+      "directory": "Home_Circuit_Analysis",
+      "thumbnail": "power_grid_thumbnail.jpeg",
+      "objectives": [
+        "Apply Ohm’s Law and power equations to household systems.",
+        "Understand circuit load balancing and power usage."
+      ],
+      "tasks": [
+        "Choose several real or hypothetical appliances and estimate current and power use.",
+        "Design a basic home circuit with branches and calculate expected loads and voltage drops.",
+        "Evaluate safety margins and propose improvements for circuit safety."
+      ],
+      "physics_concepts": [
+        "Ohm’s Law: V = IR",
+        "Power: P = IV",
+        "Series and parallel resistor networks"
+      ],
+      "assigned_to": ""
+    },
+    {
+      "title": "Voltage Divider Design for Sensor Systems",
+      "directory": "Voltage_Divider_Project",
+      "thumbnail": "voltage_divider_thumbnail.jpeg",
+      "objectives": [
+        "Design voltage dividers for real-world use cases like sensors.",
+        "Analyze circuit behavior under changing inputs and loads."
+      ],
+      "tasks": [
+        "Design a voltage divider for a specific input/output constraint (e.g., reducing 12V to 5V).",
+        "Explain limitations, power dissipation, and stability.",
+        "Optional: Propose resistor substitutions or improvements."
+      ],
+      "physics_concepts": [
+        "Voltage division: V_out = V_in * (R2 / (R1 + R2))",
+        "Ohm’s Law",
+        "Power dissipation in resistors"
+      ],
+      "assigned_to": ""
+    },
+    {
+      "title": "Troubleshooting a Mystery Circuit",
+      "directory": "Kirchhoff_Mystery_Circuit",
+      "thumbnail": "circuit_puzzle_thumbnail.jpeg",
+      "objectives": [
+        "Apply Kirchhoff's laws to a multi-loop circuit.",
+        "Develop circuit analysis and debugging skills."
+      ],
+      "tasks": [
+        "Solve a complex circuit with missing or inconsistent values.",
+        "Use Kirchhoff’s Laws to identify and resolve faults or inefficiencies.",
+        "Optional: Design an improved version of the circuit."
+      ],
+      "physics_concepts": [
+        "Kirchhoff’s Loop Rule and Junction Rule",
+        "Ohm’s Law",
+        "Multi-loop circuit analysis"
+      ],
+      "assigned_to": ""
+    },
+    {
+      "title": "Designing a Wireless Power Transfer System",
+      "directory": "Wireless_Charging",
+      "thumbnail": "wireless_charging_thumbnail.jpeg",
+      "objectives": [
+        "Explore magnetic induction in wireless energy systems.",
+        "Understand coil alignment and efficiency."
+      ],
+      "tasks": [
+        "Model a system of two coils for wireless charging.",
+        "Calculate mutual inductance and efficiency based on spacing and alignment.",
+        "Explain induced EMF and power transfer with diagrams or simulations."
+      ],
+      "physics_concepts": [
+        "Faraday’s Law: EMF = -dΦ/dt",
+        "Mutual inductance",
+        "Energy transfer via induction"
+      ],
+      "assigned_to": ""
+    },
+    {
+      "title": "Regenerative Braking in Electric Vehicles",
+      "directory": "Regen_Braking",
+      "thumbnail": "regen_braking_thumbnail.jpeg",
+      "objectives": [
+        "Analyze kinetic-to-electrical energy conversion in EVs.",
+        "Explore how electromagnetic induction aids energy recovery."
+      ],
+      "tasks": [
+        "Model the braking process in terms of induced EMF and energy conversion.",
+        "Estimate power recovered under certain vehicle speeds and conditions.",
+        "Discuss limitations and future improvements in EV designs."
+      ],
+      "physics_concepts": [
+        "Faraday’s Law",
+        "Lenz’s Law",
+        "Magnetic braking and induction"
       ],
       "assigned_to": ""
     }
