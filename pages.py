@@ -1,7 +1,8 @@
 import streamlit as st
-# from project_utils import load_projects, display_project_thumbnails, display_project_details
 from sheets import get_project_statuses, log_assignment, update_project_status, log_sign_event
 from data.Magnetic_Fields_and_Forces.Analyz_Earths_Magnetos.project_texts import project_steps_texts
+import importlib
+from project_utils import load_projects, display_project_thumbnails, display_project_details
 
 def login_page():
     st.title("Login")
@@ -51,12 +52,13 @@ def display_my_project(statuses):
     if adopted_project:
         category, title = adopted_project
         st.write(f"**Project:** {title} in {category}")
-        # For the specific project, show a button to view detailed multi‑step info.
-        if title == "Analyzing Earth’s Magnetosphere and the Physics of Solar Wind Interactions":
-            if st.button("View Project Details"):
-                st.session_state["project_step_index"] = 0  # initialize steps
-                display_project_steps()
-                return
+        
+        # Always show the View Project Details button for any adopted project.
+        if st.button("View Project Details"):
+            st.session_state["project_details_mode"] = True
+            st.session_state["project_step_index"] = 0  # initialize steps
+            st.rerun()
+            
         if st.button("Abandon Project"):
             log_assignment(category, title, username, action="abandoned")
             update_project_status(category, title, "", new_status="available")
@@ -64,36 +66,38 @@ def display_my_project(statuses):
             st.rerun()
     else:
         st.write("You have not adopted any project.")
+        
+def display_project_steps(pages):
+	if "project_step_index" not in st.session_state:
+		st.session_state["project_step_index"] = 0
+	
+	if st.button("Exit Project Details"):
+		st.session_state["project_details_mode"] = False
+		st.rerun()
+        
+	index = st.session_state["project_step_index"]
+	current_page = pages[index]
 
-def display_project_steps():
-    # Use the pages defined in project_texts.py
-    pages = project_steps_texts
-    if "project_step_index" not in st.session_state:
-        st.session_state["project_step_index"] = 0
+	st.header(current_page["title"])
+	st.markdown(current_page["content"])
 
-    index = st.session_state["project_step_index"]
-    current_page = pages[index]
+	col1, col2, col3 = st.columns([1, 2, 1])
+	with col1:
+		if index > 0:
+			if st.button("Back"):
+				st.session_state["project_step_index"] = index - 1
+				st.rerun()
+	with col3:
+		if index < len(pages) - 1:
+			btn_label = "Start" if index == 0 else "Next"
+			if st.button(btn_label):
+				st.session_state["project_step_index"] = index + 1
+				st.rerun()
+		else:
+			st.write("End of project details.")
 
-    st.header(current_page["title"])
-    st.markdown(current_page["content"])
-
-    col1, col2, col3 = st.columns([1, 2, 1])
-    with col1:
-        if index > 0:
-            if st.button("Back"):
-                st.session_state["project_step_index"] = index - 1
-                st.rerun()
-    with col3:
-        if index < len(pages) - 1:
-            btn_label = "Start" if index == 0 else "Next"
-            if st.button(btn_label):
-                st.session_state["project_step_index"] = index + 1
-                st.rerun()
-        else:
-            st.write("End of project details.")
-
-    st.markdown("---")
-    st.info("Use the Next and Back buttons to navigate through the project steps.")
+	st.markdown("---")
+	st.info("Use the Next and Back buttons to navigate through the project steps.")
 
 def display_rubric():
     st.header("📌 Project Grading Rubric")
@@ -137,7 +141,6 @@ def display_rubric():
 
 def main_app():
     st.title("PHY132 Project Showcase")
-    from project_utils import load_projects, display_project_thumbnails, display_project_details
     projects_data = load_projects()
     statuses = get_project_statuses()
 
@@ -152,6 +155,7 @@ def main_app():
                 break
 
     selection = st.sidebar.radio("Go to:", nav_options)
+    
     if selection == "📌 Rubric":
         display_rubric()
         return
@@ -159,9 +163,41 @@ def main_app():
         display_profile(statuses)
         return
     elif selection == "📁 My Project":
-        display_my_project(statuses)
-        return
+        # Check if we are in project details mode
+        if st.session_state.get("project_details_mode", False):
+            # Load the project's underlying texts dynamically
+            adopted_project = None
+            for key, status in statuses.items():
+                if status.get("Student ID", "") == username:
+                    adopted_project = key
+                    break
+            if adopted_project:
+                category, title = adopted_project
+                # Find the directory for this project in your JSON
+                directory = None
+                if category in projects_data:
+                    for proj in projects_data[category]:
+                        if proj["title"] == title:
+                            directory = proj.get("directory")
+                            break
+                if directory:
+                    category_dir = category.replace(" ", "_")
+                    module_path = f"data.{category_dir}.{directory}.project_texts"
+                    import importlib
+                    try:
+                        project_module = importlib.import_module(module_path)
+                        pages = project_module.project_steps_texts
+                        display_project_steps(pages)
+                        return  # Stop processing further so the details remain visible.
+                    except Exception as e:
+                        st.error(f"Could not load project details: {e}")
+                else:
+                    st.warning("No directory found for this project.")
+        else:
+            display_my_project(statuses)
+            return
 
+    # Otherwise, if the selection is "Projects"
     if "selected_project" not in st.session_state:
         st.session_state.selected_project = None
 
@@ -177,6 +213,7 @@ def main_app():
                 display_project_details(category, project, statuses)
                 break
 
+    # Footer remains unchanged
     footer = '''
     <div style="display: flex; justify-content: space-between; align-items: center;">
         <div>

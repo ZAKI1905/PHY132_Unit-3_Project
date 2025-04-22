@@ -75,7 +75,7 @@ def display_project_details(category, project, statuses):
     # Use the project title as the unique key for status.
 	key = (category, project["title"])
     # Debugging output: Check the key and the current status.
-	st.write("DEBUG: Project Key:", key, "Status from Sheet:", statuses.get(key))
+	# st.write("DEBUG: Project Key:", key, "Status from Sheet:", statuses.get(key))
     
 	# Get status from the Google Sheet, default to available.
 	proj_status = statuses.get(key, {"Status": "available", "Student ID": ""})
