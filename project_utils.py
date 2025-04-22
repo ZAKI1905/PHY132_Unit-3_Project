@@ -80,7 +80,8 @@ def display_project_details(category, project, statuses):
 	# Get status from the Google Sheet, default to available.
 	proj_status = statuses.get(key, {"Status": "available", "Student ID": ""})
 	if proj_status["Status"].lower() in ["taken", "adopted"]:
-		st.info(f"✅ This project has been adopted by: {proj_status.get('Student ID')}")
+		# st.info(f"✅ This project has been adopted by: {proj_status.get('Student ID')}")
+		st.info(f"✅ This project has been adopted.")
 	else:
 		username = st.session_state.get("username")
 		if username:
