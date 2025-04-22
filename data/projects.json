@@ -99,7 +99,7 @@
       "assigned_to": ""
     }
   ],
-  "Course-Wide Projects": [
+  "Circuits": [
     {
       "title": "Home Energy Audit (Applied Circuit Analysis)",
       "directory": "Home_Circuit_Analysis",
@@ -159,7 +159,10 @@
         "Multi-loop circuit analysis"
       ],
       "assigned_to": ""
-    },
+    }
+  ],
+  
+  "Induction": [
     {
       "title": "Designing a Wireless Power Transfer System",
       "directory": "Wireless_Charging",
